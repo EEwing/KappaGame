@@ -1,0 +1,51 @@
+﻿This file documents the ideas from the Twitch stream that took place on February 6, 2016 at twitch.tv/Quentillionaire
+
+The following are brainstorms for our 2D MOBA:
+
+3 vertical "lanes" for level design
+how to generate lanes: 
+	Static lanes (HotS, DOTA, LoL)
+	PCG procedurally:
+		Mirror
+		Math to ensure to unfair advantage
+
+Jungles:
+	Series of ethereal platforms (perform action to enter)
+	seperate lanes
+	PCG again, x units away from center, path through jungle pivots to create jungles
+	Include Jungle buffs
+	2.5D - Jungles are separate rooms
+	Jungle appears behind main arena, slightly blurred
+
+Setting for the game:
+	possible hero/champion/whatever classes:
+		witches
+		steampunk
+		magic
+		knight
+		futuristic
+	Contra/Metal Slug feel?
+
+Shop:
+	buy talents, not items
+
+Skill:
+	Where do these go? QER? 1234?
+	Active abilities
+
+Talents?:
+	important changes that act passively throughout the game
+	ie:
+		health/magic/stat boosts
+
+Weapons:
+	Base weapon can be interchangeable
+	Different weapons have different attack types
+
+Characters:
+	Character choice affects skill types
+
+Misc:
+	Player collisions:
+		Collide with players and enemies
+		Teammate "Boosting"

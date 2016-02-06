@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace KappaGame {
+namespace Kappa {
 #if WINDOWS || LINUX
     /// <summary>
     /// The main class.
@@ -13,7 +13,7 @@ namespace KappaGame {
         [STAThread]
         static void Main()
         {
-            using (var game = new Game1())
+            using (var game = new KappaGame())
                 game.Run();
         }
     }

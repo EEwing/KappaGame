@@ -49,3 +49,6 @@ Misc:
 	Player collisions:
 		Collide with players and enemies
 		Teammate "Boosting"
+
+Authentication:
+	Use twitch accounts!

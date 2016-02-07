@@ -54,6 +54,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Documentation\KappaGame.xml" />
+    <Content Include="Documentation\Server-Client.xml" />
     <Content Include="Icon.ico" />
     <Content Include="Documentation\Ideas.txt" />
   </ItemGroup>

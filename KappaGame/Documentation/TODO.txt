@@ -1,0 +1,17 @@
+﻿Create a GuiBuilder:
+	Should contain ways to arrange data on screen "Smartly"
+	Best if it could abstract the actual pixels out, and arrange data near center of screen
+	implements "safe zone", or buffer of n pixels from edge of screen
+
+Create terrain generation:
+	Random terrain, build using a pathing algorithm
+	Should go through base point, jungle start point, and mid point
+	mirrored over center (Try without, but balance lengths)
+
+Create Networking code:
+	Packets, packet types, reading, sending, etc.
+	No interaction with Matchmaking API //yet//.
+	Check out http://www.nuget.org/packages/Network for one of the collaborators previous projects
+	Source for Network package is at http://www.indie-dev.at/?page_id=480
+
+If you plan to work on a portion of the code Sunday, Feb. 6, send Quentillionaire an email at Quentillionaire@gmail.com to let him know which portion.

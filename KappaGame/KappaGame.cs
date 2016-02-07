@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Kappa.gui;
+using Kappa.gui.scenes;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -10,9 +12,19 @@ namespace Kappa {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        private static KappaGame instance;
+        public static KappaGame Instance { get { return instance; } }
+
         public KappaGame() {
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferWidth = 1920;
+            graphics.PreferredBackBufferHeight = 1080;
+            Window.IsBorderless = true;
+            graphics.ApplyChanges();
+
             Content.RootDirectory = "Content";
+            this.IsMouseVisible = true;
+            instance = this;
         }
 
         /// <summary>
@@ -23,6 +35,8 @@ namespace Kappa {
         /// </summary>
         protected override void Initialize() {
             // TODO: Add your initialization logic here
+
+            SceneController.Instance.SwitchToScene(new SceneMainMenu());
 
             base.Initialize();
         }
@@ -43,6 +57,7 @@ namespace Kappa {
         /// game-specific content.
         /// </summary>
         protected override void UnloadContent() {
+            SceneController.Instance.UnloadContent();
             // TODO: Unload any non ContentManager content here
         }
 
@@ -57,6 +72,7 @@ namespace Kappa {
                 Exit();
 
             // TODO: Add your update logic here
+            SceneController.Instance.Update(dt);
 
             base.Update(gameTime);
         }
@@ -66,9 +82,13 @@ namespace Kappa {
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime) {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Magenta);
 
-            // TODO: Add your drawing code here
+            spriteBatch.Begin();
+
+            SceneController.Instance.Render(spriteBatch);
+
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }

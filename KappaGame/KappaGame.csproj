@@ -38,6 +38,13 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="gui\interaction\Button.cs" />
+    <Compile Include="gui\IRenderable.cs" />
+    <Compile Include="gui\Scene.cs" />
+    <Compile Include="gui\SceneController.cs" />
+    <Compile Include="gui\scenes\SceneInGame.cs" />
+    <Compile Include="gui\scenes\SceneMainMenu.cs" />
+    <Compile Include="IDynamicObject.cs" />
     <Compile Include="KappaGame.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -54,8 +61,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\textures\char.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\textures\menu\main\play.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\textures\menu\menumain.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Documentation\KappaGame.xml" />
     <Content Include="Documentation\Server-Client.xml" />
+    <Content Include="Documentation\TODO.txt" />
     <Content Include="Icon.ico" />
     <Content Include="Documentation\Ideas.txt" />
   </ItemGroup>
@@ -64,6 +81,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="entity\" />
+    <Folder Include="network\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />

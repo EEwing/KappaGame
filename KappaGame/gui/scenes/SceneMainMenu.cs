@@ -8,12 +8,14 @@ using Microsoft.Xna.Framework;
 using Kappa.gui.interaction;
 
 namespace Kappa.gui.scenes {
-    class SceneMainMenu : Scene {
+    class SceneMainMenu : SceneGui {
 
-        static Texture2D menu = null;
-        static Texture2D button = null;
-        Button b;
-        
+        Texture2D menu = null;
+        Texture2D buttonPlayTX = null;
+        Texture2D buttonBitmineTX = null;
+        Texture2D buttonOptionsTX = null;
+        Texture2D buttonExitTX = null;
+
         public override void Exit() {
             
         }
@@ -22,27 +24,47 @@ namespace Kappa.gui.scenes {
             if(menu == null)
                 menu = content.Load<Texture2D>("textures/menu/menumain");
 
-            if (button == null)
-                button = content.Load<Texture2D>("textures/menu/main/play");
+            if (buttonPlayTX == null)
+                buttonPlayTX = content.Load<Texture2D>("textures/menu/main/button/play");
+
+            if (buttonBitmineTX == null)
+                buttonBitmineTX = content.Load<Texture2D>("textures/menu/main/button/bitmine");
+
+            if (buttonOptionsTX == null)
+                buttonOptionsTX = content.Load<Texture2D>("textures/menu/main/button/options");
+
+            if (buttonExitTX == null)
+                buttonExitTX = content.Load<Texture2D>("textures/menu/main/button/exit");
         }
+
 
         public override void Initialize() {
-            int w = button.Bounds.Width * 2;
-            int h = button.Bounds.Height * 2;
+            int w = buttonPlayTX.Bounds.Width * 1;
+            int h = buttonPlayTX.Bounds.Height * 1;
             Rectangle window = KappaGame.Instance.GraphicsDevice.PresentationParameters.Bounds;
-            b = new Button(new Rectangle((window.Width - w)/2, (window.Height - h)/2, w, h), button);
-            b.ButtonPressed = () => SceneController.Instance.SwitchToScene(new SceneInGame());
+
+            int space = 32;
+
+            buttons[0] = new Button(new Rectangle((window.Width - w) / 2, (window.Height - h) / 2 - ((h + space) * 2), w, h), buttonPlayTX);
+            buttons[0].ButtonPressed = () => SceneController.Instance.SwitchToScene(new SceneInGame());
+
+            buttons[1] = new Button(new Rectangle((window.Width - w) / 2, (window.Height - h) / 2 - ((h + space) * 1), w, h), buttonBitmineTX);
+            //buttons[1].ButtonPressed = () => SceneController.Instance.SwitchToScene(new SceneInGame());
+
+            buttons[2] = new Button(new Rectangle((window.Width - w) / 2, (window.Height - h) / 2 - ((h + space) * 0), w, h), buttonOptionsTX);
+            buttons[2].ButtonPressed = () => SceneController.Instance.SwitchToScene(new SceneOptions());
+
+            buttons[3] = new Button(new Rectangle((window.Width - w) / 2, (window.Height - h) / 2 - ((h + space) * -1), w, h), buttonExitTX);
+            //buttons[3].ButtonPressed = () => SceneController.Instance.SwitchToScene(new SceneInGame());
         }
 
-        public override void Render(SpriteBatch spriteBatch) {
+        public override void RenderGui(SpriteBatch spriteBatch) {
             Rectangle bounds = KappaGame.Instance.GraphicsDevice.PresentationParameters.Bounds;
             spriteBatch.Draw(menu, new Rectangle(0, 0, bounds.Width, bounds.Height), Color.White);
-            b.Render(spriteBatch);
         }
 
-        public override void Update(float dt) {
+        public override void UpdateGui(float dt) {
             Console.WriteLine("Updating SceneMainMenu");
-            b.Update(dt);
         }
     }
 }

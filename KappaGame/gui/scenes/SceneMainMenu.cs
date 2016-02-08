@@ -8,63 +8,90 @@ using Microsoft.Xna.Framework;
 using Kappa.gui.interaction;
 
 namespace Kappa.gui.scenes {
-    class SceneMainMenu : SceneGui {
+    class SceneMainMenu : SceneButtonList {
 
         Texture2D menu = null;
-        Texture2D buttonPlayTX = null;
-        Texture2D buttonBitmineTX = null;
-        Texture2D buttonOptionsTX = null;
-        Texture2D buttonExitTX = null;
+
+        Button playButton = null;
+        Button optionsButton = null;
+        Button bitmineButton = null;
+        Button exitButton = null;
+
+        public SceneMainMenu() {
+
+
+
+            //playButton = new Button(new Rectangle((window.Width - w) / 2, (window.Height - h) / 2 - ((h + space) * 2), w, h));
+            playButton = new Button();
+            playButton.ButtonPressed = () => SceneController.Instance.SwitchToScene(Scene.IN_GAME);
+
+            //bitmineButton = new Button(new Rectangle((window.Width - w) / 2, (window.Height - h) / 2 - ((h + space) * 1), w, h));
+            bitmineButton = new Button();
+            //buttons[1].ButtonPressed = () => SceneController.Instance.SwitchToScene(new SceneInGame());
+
+            //optionsButton = new Button(new Rectangle((window.Width - w) / 2, (window.Height - h) / 2 - ((h + space) * 0), w, h));
+            optionsButton = new Button();
+            optionsButton.ButtonPressed = () => SceneController.Instance.SwitchToScene(Scene.OPTIONS);
+
+            //exitButton = new Button(new Rectangle((window.Width - w) / 2, (window.Height - h) / 2 - ((h + space) * -1), w, h));
+            exitButton = new Button();
+            exitButton.ButtonPressed = () => KappaGame.Instance.Exit();
+
+        }
 
         public override void Exit() {
             
         }
 
         public override void LoadContent(ContentManager content) {
-            if(menu == null)
+            if (menu == null)
                 menu = content.Load<Texture2D>("textures/menu/menumain");
 
-            if (buttonPlayTX == null)
-                buttonPlayTX = content.Load<Texture2D>("textures/menu/main/button/play");
+            Console.WriteLine("Loading Content for Main Menu");
+            if (!playButton.HasTexture()) {
+                playButton.Texture = content.Load<Texture2D>("textures/menu/main/button/play");
+            }
 
-            if (buttonBitmineTX == null)
-                buttonBitmineTX = content.Load<Texture2D>("textures/menu/main/button/bitmine");
+            if (!bitmineButton.HasTexture()) { 
+                bitmineButton.Texture = content.Load<Texture2D>("textures/menu/main/button/bitmine");
+            }
 
-            if (buttonOptionsTX == null)
-                buttonOptionsTX = content.Load<Texture2D>("textures/menu/main/button/options");
+            if (!optionsButton.HasTexture()) { 
+                optionsButton.Texture = content.Load<Texture2D>("textures/menu/main/button/options");
+            }
 
-            if (buttonExitTX == null)
-                buttonExitTX = content.Load<Texture2D>("textures/menu/main/button/exit");
+            if (!exitButton.HasTexture()) { 
+                exitButton.Texture = content.Load<Texture2D>("textures/menu/main/button/exit");
+            }
         }
 
-
         public override void Initialize() {
-            int w = buttonPlayTX.Bounds.Width * 1;
-            int h = buttonPlayTX.Bounds.Height * 1;
-            Rectangle window = KappaGame.Instance.GraphicsDevice.PresentationParameters.Bounds;
 
             int space = 32;
 
-            buttons[0] = new Button(new Rectangle((window.Width - w) / 2, (window.Height - h) / 2 - ((h + space) * 2), w, h), buttonPlayTX);
-            buttons[0].ButtonPressed = () => SceneController.Instance.SwitchToScene(new SceneInGame());
+            int w = playButton.Texture.Bounds.Width;
+            int h = playButton.Texture.Bounds.Height;
+            Rectangle window = KappaGame.Instance.GraphicsDevice.PresentationParameters.Bounds;
+            
+            playButton.Bounds = new Rectangle((window.Width - w) / 2, (window.Height - h) / 2 - ((h + space) * 2), w, h);
+            bitmineButton.Bounds = new Rectangle((window.Width - w) / 2, (window.Height - h) / 2 - ((h + space) * 1), w, h);
+            optionsButton.Bounds = new Rectangle((window.Width - w) / 2, (window.Height - h) / 2 - ((h + space) * 0), w, h);
+            exitButton.Bounds = new Rectangle((window.Width - w) / 2, (window.Height - h) / 2 - ((h + space) * -1), w, h);
 
-            buttons[1] = new Button(new Rectangle((window.Width - w) / 2, (window.Height - h) / 2 - ((h + space) * 1), w, h), buttonBitmineTX);
-            //buttons[1].ButtonPressed = () => SceneController.Instance.SwitchToScene(new SceneInGame());
-
-            buttons[2] = new Button(new Rectangle((window.Width - w) / 2, (window.Height - h) / 2 - ((h + space) * 0), w, h), buttonOptionsTX);
-            buttons[2].ButtonPressed = () => SceneController.Instance.SwitchToScene(new SceneOptions());
-
-            buttons[3] = new Button(new Rectangle((window.Width - w) / 2, (window.Height - h) / 2 - ((h + space) * -1), w, h), buttonExitTX);
-            //buttons[3].ButtonPressed = () => SceneController.Instance.SwitchToScene(new SceneInGame());
+            buttons.Add(playButton);
+            buttons.Add(optionsButton);
+            buttons.Add(bitmineButton);
+            buttons.Add(exitButton);
         }
 
-        public override void RenderGui(SpriteBatch spriteBatch) {
-            Rectangle bounds = KappaGame.Instance.GraphicsDevice.PresentationParameters.Bounds;
-            spriteBatch.Draw(menu, new Rectangle(0, 0, bounds.Width, bounds.Height), Color.White);
+        public override void Render(SpriteBatch spriteBatch) {
+            spriteBatch.Draw(menu, KappaGame.Instance.GraphicsDevice.PresentationParameters.Bounds,  Color.White);
+            //spriteBatch.DrawString( KappaGame.Instance.FPS);
+            base.Render(spriteBatch);
         }
 
-        public override void UpdateGui(float dt) {
-            Console.WriteLine("Updating SceneMainMenu");
+        public override void Update(float dt) {
+            base.Update(dt);
         }
     }
 }

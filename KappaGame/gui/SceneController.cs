@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Kappa.gui.scenes;
 
 namespace Kappa.gui {
     class SceneController : IRenderable, IDynamicObject {
@@ -12,14 +13,19 @@ namespace Kappa.gui {
         private static SceneController instance = null;
         private ContentManager contentManager = null;
 
-        public ContentManager Content { get {
+        public ContentManager Content {
+            get {
                 if (contentManager == null) {
                     contentManager = new ContentManager(KappaGame.Instance.Services);
                     contentManager.RootDirectory = "Content";
-                    //Content.Load<Texture2D>("textures/menu/menumain");
                 }
                 return contentManager;
-        } }
+            }
+        }
+
+        public SceneController() {
+            LoadScene(Scene.MAIN_MENU);
+        }
         
         public void Render(SpriteBatch spriteBatch) {
             if(currentScene != null) {
@@ -46,15 +52,18 @@ namespace Kappa.gui {
             if(currentScene != null) {
                 currentScene.Exit();
             }
-            currentScene = newScene;
-            currentScene.LoadContent(Content);
-            currentScene.Initialize();
+            LoadScene(newScene);
         }
 
         public void Update(float dt) {
-            Console.WriteLine("Updating SceneController");
             if (currentScene != null)
                 currentScene.Update(dt);
+        }
+
+        private void LoadScene(Scene scene) {
+            currentScene = scene;
+            currentScene.LoadContent(Content);
+            currentScene.Initialize();
         }
     }
 }

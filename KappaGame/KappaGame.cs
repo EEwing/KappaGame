@@ -1,8 +1,10 @@
-﻿using Kappa.gui;
+﻿using FarseerPhysics;
+using Kappa.gui;
 using Kappa.gui.scenes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace Kappa {
     /// <summary>
@@ -14,17 +16,19 @@ namespace Kappa {
 
         private static KappaGame instance;
         public static KappaGame Instance { get { return instance; } }
+        public float FPS { get; private set; }
 
         public KappaGame() {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = 1920;
-            graphics.PreferredBackBufferHeight = 1080;
-            Window.IsBorderless = true;
-            graphics.ApplyChanges();
+            //graphics.PreferredBackBufferWidth = 1920;
+            //graphics.PreferredBackBufferHeight = 1080;
+            //Window.IsBorderless = true;
+            //graphics.ApplyChanges();
 
             Content.RootDirectory = "Content";
             this.IsMouseVisible = true;
             instance = this;
+            ConvertUnits.SetDisplayUnitToSimUnitRatio(32f);
         }
 
         /// <summary>
@@ -35,8 +39,6 @@ namespace Kappa {
         /// </summary>
         protected override void Initialize() {
             // TODO: Add your initialization logic here
-
-            SceneController.Instance.SwitchToScene(new SceneMainMenu());
 
             base.Initialize();
         }
@@ -67,11 +69,11 @@ namespace Kappa {
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime) {
-            float dt = gameTime.TotalGameTime.Milliseconds / 1000f;
+            float dt = gameTime.ElapsedGameTime.Milliseconds / 1000f;
+            FPS = 1 / dt;
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
             SceneController.Instance.Update(dt);
 
             base.Update(gameTime);
@@ -82,7 +84,7 @@ namespace Kappa {
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime) {
-            GraphicsDevice.Clear(Color.Magenta);
+            GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin();
 

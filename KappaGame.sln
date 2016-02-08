@@ -5,16 +5,51 @@ VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KappaGame", "KappaGame\KappaGame.csproj", "{095BA7A0-41D4-4DF7-AA26-8D58484B87C1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Network", "Network\Network.csproj", "{793945C4-2E9B-4B9E-A3D6-2D49F1E6DA38}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Farseer Physics MonoGame", "Farseer Physics Engine 3.5\Farseer Physics MonoGame.csproj", "{0AAD36E3-51A5-4A07-AB60-5C8A66BD38B7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
 		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
 		Release|x86 = Release|x86
+		Server|Any CPU = Server|Any CPU
+		Server|x86 = Server|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{095BA7A0-41D4-4DF7-AA26-8D58484B87C1}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{095BA7A0-41D4-4DF7-AA26-8D58484B87C1}.Debug|x86.ActiveCfg = Debug|x86
 		{095BA7A0-41D4-4DF7-AA26-8D58484B87C1}.Debug|x86.Build.0 = Debug|x86
+		{095BA7A0-41D4-4DF7-AA26-8D58484B87C1}.Release|Any CPU.ActiveCfg = Release|x86
 		{095BA7A0-41D4-4DF7-AA26-8D58484B87C1}.Release|x86.ActiveCfg = Release|x86
 		{095BA7A0-41D4-4DF7-AA26-8D58484B87C1}.Release|x86.Build.0 = Release|x86
+		{095BA7A0-41D4-4DF7-AA26-8D58484B87C1}.Server|Any CPU.ActiveCfg = Server|x86
+		{095BA7A0-41D4-4DF7-AA26-8D58484B87C1}.Server|x86.ActiveCfg = Server|x86
+		{095BA7A0-41D4-4DF7-AA26-8D58484B87C1}.Server|x86.Build.0 = Server|x86
+		{793945C4-2E9B-4B9E-A3D6-2D49F1E6DA38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{793945C4-2E9B-4B9E-A3D6-2D49F1E6DA38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{793945C4-2E9B-4B9E-A3D6-2D49F1E6DA38}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{793945C4-2E9B-4B9E-A3D6-2D49F1E6DA38}.Debug|x86.Build.0 = Debug|Any CPU
+		{793945C4-2E9B-4B9E-A3D6-2D49F1E6DA38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{793945C4-2E9B-4B9E-A3D6-2D49F1E6DA38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{793945C4-2E9B-4B9E-A3D6-2D49F1E6DA38}.Release|x86.ActiveCfg = Release|Any CPU
+		{793945C4-2E9B-4B9E-A3D6-2D49F1E6DA38}.Release|x86.Build.0 = Release|Any CPU
+		{793945C4-2E9B-4B9E-A3D6-2D49F1E6DA38}.Server|Any CPU.ActiveCfg = Release|Any CPU
+		{793945C4-2E9B-4B9E-A3D6-2D49F1E6DA38}.Server|Any CPU.Build.0 = Release|Any CPU
+		{793945C4-2E9B-4B9E-A3D6-2D49F1E6DA38}.Server|x86.ActiveCfg = Release|Any CPU
+		{793945C4-2E9B-4B9E-A3D6-2D49F1E6DA38}.Server|x86.Build.0 = Release|Any CPU
+		{0AAD36E3-51A5-4A07-AB60-5C8A66BD38B7}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{0AAD36E3-51A5-4A07-AB60-5C8A66BD38B7}.Debug|x86.ActiveCfg = Debug|x86
+		{0AAD36E3-51A5-4A07-AB60-5C8A66BD38B7}.Debug|x86.Build.0 = Debug|x86
+		{0AAD36E3-51A5-4A07-AB60-5C8A66BD38B7}.Release|Any CPU.ActiveCfg = Release|x86
+		{0AAD36E3-51A5-4A07-AB60-5C8A66BD38B7}.Release|x86.ActiveCfg = Release|x86
+		{0AAD36E3-51A5-4A07-AB60-5C8A66BD38B7}.Release|x86.Build.0 = Release|x86
+		{0AAD36E3-51A5-4A07-AB60-5C8A66BD38B7}.Server|Any CPU.ActiveCfg = Release|x86
+		{0AAD36E3-51A5-4A07-AB60-5C8A66BD38B7}.Server|Any CPU.Build.0 = Release|x86
+		{0AAD36E3-51A5-4A07-AB60-5C8A66BD38B7}.Server|x86.ActiveCfg = Release|x86
+		{0AAD36E3-51A5-4A07-AB60-5C8A66BD38B7}.Server|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

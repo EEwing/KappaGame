@@ -8,7 +8,7 @@ using Kappa.client;
 
 namespace Kappa.gui.scenes
 {
-    class SceneOptions : SceneGui
+    class SceneOptions : SceneButtonList
     {
 
         public override void Exit()
@@ -25,16 +25,5 @@ namespace Kappa.gui.scenes
         {
             
         }
-
-        public override void RenderGui(SpriteBatch spriteBatch)
-        {
-            
-        }
-
-        public override void UpdateGui(float dt)
-        {
-            
-        }
-
     }
 }

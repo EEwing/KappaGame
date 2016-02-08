@@ -16,28 +16,32 @@ namespace Kappa.gui.interaction {
             RELEASED,
             NOT_PRESSED
         }
-
-        private Rectangle bounds;
-        private Texture2D texture;
+        
+        //private Texture2D texture;
         private int releasedFrames = 0;
 
+        public Rectangle Bounds { get; set; } = new Rectangle(0, 0, 0, 0);
+        public Vector2 Location { get; set; }
         public int ReleasedLength { get; set; } = 5;
         public Color BackgroundColor { get; set; } = Color.White;
         public Color PressedColor { get; set; } = Color.DarkGray;
         public Color ReleasedColor { get; set; } = Color.LightGray;
         public Color HoverColor { get; set; } = Color.LightGray;
+        public Texture2D Texture { set; get; }
 
         public Action ButtonPressed { get; set; }
 
         State state;
 
-        public Rectangle Bounds { get { return bounds; } }
-
-        public Button(Rectangle bounds_, Texture2D texture_ = null) {
-            bounds = bounds_;
-            texture = texture_;
+        public Button() {
             state = State.NOT_PRESSED;
         }
+
+        public Button(Rectangle bounds_) : this() {
+            Bounds = bounds_;
+        }
+
+        public Button(Vector2 loc) : this(new Rectangle(loc.ToPoint(), Point.Zero)) {}
 
         public void Update(float dt) {
             if(state == State.RELEASED) {
@@ -47,14 +51,15 @@ namespace Kappa.gui.interaction {
                 }
             }
             
-            if (bounds.Left < Mouse.GetState().Position.X && bounds.Right > Mouse.GetState().Position.X &&
-                bounds.Top < Mouse.GetState().Position.Y && bounds.Bottom > Mouse.GetState().Position.Y) {
+            if (Bounds.Left < Mouse.GetState().Position.X && Bounds.Right > Mouse.GetState().Position.X &&
+                Bounds.Top < Mouse.GetState().Position.Y && Bounds.Bottom > Mouse.GetState().Position.Y) {
                 if (state == State.NOT_PRESSED) {
                     state = State.HOVER;
                 }
                 if (Mouse.GetState().LeftButton == ButtonState.Pressed) {
                     state = State.PRESSED;
-                    ButtonPressed();
+                    if(ButtonPressed != null)
+                        ButtonPressed();
                 } else {
                     if (state == State.PRESSED) {
                         state = State.RELEASED;
@@ -77,18 +82,22 @@ namespace Kappa.gui.interaction {
         public void Render(SpriteBatch spriteBatch) {
             switch (state) {
                 case State.PRESSED:
-                    spriteBatch.Draw(texture, Bounds, PressedColor);
+                    spriteBatch.Draw(Texture, Bounds, PressedColor);
                     break;
                 case State.HOVER:
-                    spriteBatch.Draw(texture, Bounds, HoverColor);
+                    spriteBatch.Draw(Texture, Bounds, HoverColor);
                     break;
                 case State.RELEASED:
-                    spriteBatch.Draw(texture, Bounds, ReleasedColor);
+                    spriteBatch.Draw(Texture, Bounds, ReleasedColor);
                     break;
                 case State.NOT_PRESSED:
-                    spriteBatch.Draw(texture, Bounds, BackgroundColor);
+                    spriteBatch.Draw(Texture, Bounds, BackgroundColor);
                     break;
             }
+        }
+
+        public bool HasTexture() {
+            return Texture != null;
         }
     }
 }

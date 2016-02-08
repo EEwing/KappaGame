@@ -14,6 +14,21 @@
     <MonoGamePlatform>Windows</MonoGamePlatform>
     <MonoGameContentBuilderExe>
     </MonoGameContentBuilderExe>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -37,13 +52,26 @@
   <PropertyGroup>
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Server|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Server\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;WINDOWS</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="client\OptionsProfile.cs" />
+    <Compile Include="entity\Damagable.cs" />
+    <Compile Include="entity\Entity.cs" />
+    <Compile Include="entity\Player.cs" />
+    <Compile Include="entity\PlayerModel.cs" />
     <Compile Include="gui\interaction\Button.cs" />
     <Compile Include="gui\IRenderable.cs" />
     <Compile Include="gui\Scene.cs" />
     <Compile Include="gui\SceneController.cs" />
-    <Compile Include="gui\scenes\SceneGui.cs" />
+    <Compile Include="gui\scenes\SceneButtonList.cs" />
     <Compile Include="gui\scenes\SceneOptions.cs" />
     <Compile Include="gui\scenes\SceneInGame.cs" />
     <Compile Include="gui\scenes\SceneMainMenu.cs" />
@@ -51,12 +79,16 @@
     <Compile Include="KappaGame.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="server\connection\OfflinePlayerConnection.cs" />
+    <Compile Include="server\connection\OnlinePlayerConnection.cs" />
+    <Compile Include="server\OfflineServer.cs" />
+    <Compile Include="server\OnlineServer.cs" />
+    <Compile Include="server\connection\PlayerConnection.cs" />
+    <Compile Include="server\packet\Packet.cs" />
+    <Compile Include="world\Map.cs" />
+    <Compile Include="world\MapModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="FarseerPhysicsXNAWP7, Version=3.3.1.37294, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\FarseerPhysicsXNAWP7.3.3.1.37294\lib\net40-Client\FarseerPhysicsXNAWP7.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="MonoGame.Framework">
       <HintPath>$(MSBuildProgramFiles32)\MonoGame\v3.0\Assemblies\Windows\MonoGame.Framework.dll</HintPath>
     </Reference>
@@ -65,6 +97,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\textures\char.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\textures\entities\hitbox.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\textures\entities\player.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\textures\maps\map1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\textures\menu\main\button\bitmine.png">
@@ -92,11 +133,34 @@
     <MonoGameContentReference Include="Content\Content.mgcb" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <Compile Include="server\PlayerManager.cs" />
+    <Compile Include="server\Server.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="entity\" />
     <Folder Include="network\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.4.5">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 4.5</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Network\Network.csproj">
+      <Project>{793945c4-2e9b-4b9e-a3d6-2d49f1e6da38}</Project>
+      <Name>Network</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />

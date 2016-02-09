@@ -16,7 +16,7 @@ namespace Kappa {
         {
             //TODO: Update argument checking to allow for extensible argument parameters
             if(args.Length > 0 && args[0] == "-server") {
-                Server server = new Server();
+                Server server = new OnlineServer();
                 server.Run();
             } else {
                 using (var game = new KappaGame())

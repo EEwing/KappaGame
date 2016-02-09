@@ -7,25 +7,23 @@ using System.Threading;
 
 namespace Kappa.server
 {
-    class Server
+    abstract class Server
     {
         PlayerManager pManager = new PlayerManager();
+
+        public int ConnectionPort { get; set; } = 80; // Maybe should go in online server...
 
         public Server(List<PlayerModel> playerList = null) {
         }
 
         public void AddPlayers(List<PlayerModel> playerList) {
-            if (playerList != null) {
-                pManager.Players.Add((PlayerModel) (from p in playerList select p));
-                /*
-                foreach (PlayerModel pModel in playerList) {
-                    pManager.Players.Add(pModel);
-                }
-                */
+            //pManager.Players.Add((PlayerModel) (from p in playerList select p));
+            foreach (Player p in playerList) {
+                pManager.Players.Add(p);
             }
         }
 
-        public void Run() {
+        public virtual void Run() {
             Console.WriteLine("Running Server");
             Thread t = new Thread(pManager.ListenForPlayers);
             t.Start();

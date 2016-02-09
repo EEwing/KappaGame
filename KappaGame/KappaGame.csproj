@@ -29,6 +29,8 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -39,6 +41,7 @@
     <DefineConstants>DEBUG;TRACE;WINDOWS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -48,6 +51,7 @@
     <DefineConstants>TRACE;WINDOWS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Icon.ico</ApplicationIcon>
@@ -60,6 +64,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="client\OptionsProfile.cs" />
@@ -84,7 +89,7 @@
     <Compile Include="server\OfflineServer.cs" />
     <Compile Include="server\OnlineServer.cs" />
     <Compile Include="server\connection\PlayerConnection.cs" />
-    <Compile Include="server\packet\Packet.cs" />
+    <Compile Include="server\packet\TalkPacket.cs" />
     <Compile Include="world\Map.cs" />
     <Compile Include="world\MapModel.cs" />
   </ItemGroup>
@@ -136,9 +141,7 @@
     <Compile Include="server\PlayerManager.cs" />
     <Compile Include="server\Server.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="network\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
       <Visible>False</Visible>
@@ -161,6 +164,13 @@
       <Project>{0aad36e3-51a5-4a07-ab60-5c8a66bd38b7}</Project>
       <Name>Farseer Physics MonoGame</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Network\Network.csproj">
+      <Project>{793945c4-2e9b-4b9e-a3d6-2d49f1e6da38}</Project>
+      <Name>Network</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />

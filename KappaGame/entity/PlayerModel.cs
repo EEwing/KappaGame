@@ -14,31 +14,32 @@ using System.Text;
 namespace Kappa.entity {
     abstract class PlayerModel : Entity {
 
-        public abstract override void Update(float dt);
+        public override void Update(float dt) {
+            base.Update(dt);
+        }
 
         protected bool isJumping = false;
-        protected bool canJump = true;
+        protected bool canJump = false;
 
-        protected PlayerModel(Map map) {
-            body = BodyFactory.CreateRectangle(map.World, 0.5f, 1f, 1);
-            //Body body = BodyFactory.CreateBody(world, Vector2.Zero);
-            body.BodyType = BodyType.Dynamic;
-            body.FixedRotation = true;
-            body.Mass = 200;
-            body.OnCollision += this.OnCollision;
-            Map = map;
-            //Shape shape = new PolygonShape(PolygonTools.CreateRectangle(0.5f, 1f), 1);
-            //fixture = body.CreateFixture(shape);
+        protected PlayerModel() {
         }
 
         protected override bool OnCollision(Fixture fix1, Fixture fix2, Contact contact) {
-            if (contact.IsTouching && contact.Manifold.LocalNormal.Y > 0) {
-                Console.WriteLine("Player can jump now!");
+            if (contact.IsTouching && contact.Manifold.LocalNormal.Y < 0) {
                 canJump = true;
                 isJumping = false;
             }
 
             return true;
         }
+
+        public override void GenerateBody() {
+            body = BodyFactory.CreateRectangle(Map.World, 0.5f, 1f, 1);
+            body.BodyType = BodyType.Dynamic;
+            body.FixedRotation = true;
+            body.Mass = 200;
+            body.OnCollision += this.OnCollision;
+        }
+
     }
 }

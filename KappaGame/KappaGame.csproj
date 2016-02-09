@@ -85,6 +85,7 @@
     <Compile Include="server\OnlineServer.cs" />
     <Compile Include="server\connection\PlayerConnection.cs" />
     <Compile Include="server\packet\Packet.cs" />
+    <Compile Include="world\Camera.cs" />
     <Compile Include="world\Map.cs" />
     <Compile Include="world\MapModel.cs" />
   </ItemGroup>

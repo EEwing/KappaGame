@@ -54,7 +54,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Icon.ico</ApplicationIcon>
+    <ApplicationIcon>favicon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Server|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -132,6 +132,7 @@
     <Content Include="Documentation\KappaGame.xml" />
     <Content Include="Documentation\Server-Client.xml" />
     <Content Include="Documentation\TODO.txt" />
+    <Content Include="favicon.ico" />
     <Content Include="Icon.ico" />
     <Content Include="Documentation\Ideas.txt" />
   </ItemGroup>

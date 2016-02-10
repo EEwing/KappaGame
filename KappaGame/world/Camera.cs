@@ -22,7 +22,6 @@ namespace Kappa.world {
         private int _worldHeight;
         private int _previousScroll;
 
-        public bool tracking;
         public Entity trackTarget;
 
         public Camera(Viewport viewport, int worldWidth, int worldHeight, float initialZoom, Entity player) {
@@ -34,7 +33,6 @@ namespace Kappa.world {
             _worldWidth = worldWidth;
             _worldHeight = worldHeight;
             _previousScroll = 0;
-            tracking = true;
             trackTarget = player;
         }
 
@@ -48,7 +46,7 @@ namespace Kappa.world {
             _previousScroll = Mouse.GetState().ScrollWheelValue;
 
             // Camera movement.
-            if(tracking) {
+            if(trackTarget != null) {
                 // Try to track the said target.
                 Position = new Vector2(Position.X - ((Position.X - ConvertUnits.ToDisplayUnits(trackTarget.body.Position).X) / MOVE_SPEED), Position.Y - ((Position.Y - ConvertUnits.ToDisplayUnits(trackTarget.body.Position).Y) / MOVE_SPEED));
             } else {

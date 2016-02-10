@@ -12,11 +12,12 @@ using Kappa.server.packet;
 using Network.Enums;
 
 namespace Kappa.gui.scenes {
-    class SceneInGame : Scene {
+    class SceneInGame: Scene {
 
         Map map;
         Player player;
         ClientConnectionContainer clientConnectionContainer;
+        private Camera _camera;
 
         public SceneInGame() {
             //Server server = new OfflineServer();
@@ -35,7 +36,9 @@ namespace Kappa.gui.scenes {
             clientConnectionContainer = ConnectionFactory.CreateClientConnectionContainer("127.0.0.1", server.ConnectionPort);
             clientConnectionContainer.RegisterPacketHandler(typeof(TalkPacket), messageReceived);
             clientConnectionContainer.ConnectionEstablished += connectionEstablished;
-            */    
+            */
+
+            _camera = new Camera(KappaGame.Instance.GraphicsDevice.Viewport, 1024, 1024, 1, player);
         }
 
         private void connectionEstablished(Connection connection, ConnectionType connectionType) {
@@ -63,10 +66,13 @@ namespace Kappa.gui.scenes {
         }
 
         public override void Render(SpriteBatch spriteBatch) {
+            spriteBatch.End();
+            spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, _camera.GetMatrix());
             map.Render(spriteBatch);
         }
 
         public override void Update(float dt) {
+            _camera.Update();
             map.Update(dt);
         }
     }

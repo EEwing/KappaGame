@@ -19,23 +19,21 @@ namespace Kappa.gui.scenes {
         ClientConnectionContainer clientConnectionContainer;
 
         public SceneInGame() {
-            //Server server = new OfflineServer();
+            Server server = new OfflineServer();
             map = new Map();
             player = new Player();
             player = map.CreateEntity(player);
 
             List<PlayerModel> players = new List<PlayerModel>();
             players.Add(player);
-            /*
 
-            server.AddPlayers(players);
-            server.Run();
+            //server.AddPlayers(players);
+            //server.Run();
 
             ConnectionFactory.AddKnownTypes(typeof(TalkPacket)); //ToDo: Remove after update.
             clientConnectionContainer = ConnectionFactory.CreateClientConnectionContainer("127.0.0.1", server.ConnectionPort);
             clientConnectionContainer.RegisterPacketHandler(typeof(TalkPacket), messageReceived);
             clientConnectionContainer.ConnectionEstablished += connectionEstablished;
-            */    
         }
 
         private void connectionEstablished(Connection connection, ConnectionType connectionType) {

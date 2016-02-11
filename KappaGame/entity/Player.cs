@@ -1,4 +1,5 @@
 ﻿using Kappa.gui;
+using Kappa.utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
 using FarseerPhysics;
+using System.Diagnostics;
 
 namespace Kappa.entity {
     class Player : PlayerModel, IRenderable {
@@ -16,6 +18,7 @@ namespace Kappa.entity {
         private static Texture2D hitbox;
 
         public Player() {
+
         }
 
         public void LoadContent(ContentManager content) {
@@ -50,6 +53,23 @@ namespace Kappa.entity {
                 body.LinearVelocity = vel;
                 isJumping = true;
             }
+
+            // Pathfinder Tests 
+            /*
+                if(Keyboard.GetState().IsKeyDown(Keys.P)) {
+                    Pathfinder P = new Pathfinder(Pathfinder.GenerateTestList(100));
+                    Pathfinder.PathfinderNode Start = P.GetNodeAt(0, 0);
+                    Pathfinder.PathfinderNode End = P.GetNodeAt(20, 20);
+                    List<Pathfinder.PathfinderNode> Path = P.FindPath(Start, End, true);
+
+                    // Outputting the path.
+                    Debug.WriteLine("Starting from (" + Start.X + ", " + Start.Y + ") and going to (" + End.X + ", " + End.Y + ")");
+                    for(var i = 0; i < Path.Count; i++) {
+                        Debug.WriteLine("Now at : (" + Path[i].X + ", " + Path[i].Y + ")");
+                    }
+                }
+            */
+
             base.Update(dt);
         }
 

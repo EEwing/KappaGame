@@ -7,57 +7,42 @@ using Microsoft.Xna.Framework.Graphics;
 using Kappa.world;
 using Kappa.entity;
 using Kappa.server;
-using Network;
-using Kappa.server.packet;
-using Network.Enums;
 
 namespace Kappa.gui.scenes {
     class SceneInGame: Scene {
 
         Map map;
         Player player;
-        ClientConnectionContainer clientConnectionContainer;
+        KappaServer server;
+        KappaClient client;
         private Camera _camera;
 
         public SceneInGame() {
-            Server server = new OfflineServer();
             map = new Map();
             player = new Player();
-            player = map.CreateEntity(player);
-
-            List<PlayerModel> players = new List<PlayerModel>();
-            players.Add(player);
-            /*
-
-            //server.AddPlayers(players);
-            //server.Run();
-
-            ConnectionFactory.AddKnownTypes(typeof(TalkPacket)); //ToDo: Remove after update.
-            clientConnectionContainer = ConnectionFactory.CreateClientConnectionContainer("127.0.0.1", server.ConnectionPort);
-            clientConnectionContainer.RegisterPacketHandler(typeof(TalkPacket), messageReceived);
-            clientConnectionContainer.ConnectionEstablished += connectionEstablished;
-            */
-
-            _camera = new Camera(KappaGame.Instance.GraphicsDevice.Viewport, 1024, 1024, 1, player);
-        }
-
-        private void connectionEstablished(Connection connection, ConnectionType connectionType) {
-            TalkPacket talkPacket = new TalkPacket();
-            talkPacket.Message = "Hello World!";
-
-            Console.WriteLine("Client: Connection Established!");
-            connection.Send(talkPacket);
-        }
-
-        private void messageReceived(Packet packet, Connection connection) {
-            TalkPacket response = (TalkPacket)packet;
-            Console.WriteLine($"Client: Message received! {response.Message}");
-        }
+         }
 
         public override void Exit() {
+            server.Stop();
+            client.Stop();
         }
 
         public override void Initialize() {
+            server = new KappaServer();
+            client = new KappaClient();
+            player = map.CreateEntity(player);
+            
+            List<PlayerModel> players = new List<PlayerModel>();
+            players.Add(player);
+
+            server.Start();
+            client.Start();
+
+            client.ConnectToServer("127.0.0.1", server.ConnectionPort);
+
+            client.SendString("We're connected, baby!");
+
+            _camera = new Camera(KappaGame.Instance.GraphicsDevice.Viewport, 1024, 1024, 1, player);
         }
 
         public override void LoadContent(ContentManager content) {

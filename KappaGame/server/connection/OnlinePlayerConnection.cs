@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Kappa.server.packet;
 using Kappa.entity;
 using Kappa.world;
 

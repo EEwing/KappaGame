@@ -1,34 +1,72 @@
-﻿using Network;
-using Network.Enums;
+﻿using Lidgren.Network;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Server_Client {
-    class Client {
+    class Client : NetClient {
 
-        ClientConnectionContainer clientConnectionContainer;
+        private bool isListening = false;
+        Thread messageThread;
 
-        public Client() {
-            ConnectionFactory.AddKnownTypes(typeof(TestPacket)); //ToDo: Remove after update.
-            clientConnectionContainer = ConnectionFactory.CreateClientConnectionContainer("127.0.0.1", 25565);
-            clientConnectionContainer.RegisterPacketHandler(typeof(TestPacket), messageReceived);
-            clientConnectionContainer.ConnectionEstablished += connectionEstablished;
+        public Client(NetPeerConfiguration config) : base(config) {
+            messageThread = new Thread(MessageEngine);
         }
 
-        private void connectionEstablished(Connection connection, ConnectionType connectionType) {
-            TestPacket talkPacket = new TestPacket();
-            talkPacket.Message = "Hello World!";
-
-            Console.WriteLine("Client: Connection Established!");
-            connection.Send(talkPacket);
+        public void Stop() {
+            isListening = false;
+            messageThread.Join();
+            Console.WriteLine("Client Stopped.");
         }
 
-        private void messageReceived(Packet packet, Connection connection) {
-            TestPacket response = (TestPacket)packet;
-            Console.WriteLine($"Client: Message received! {response.Message}");
+        public void ListenForMessages() {
+            isListening = true;
+            messageThread.Start();
+        }
+
+        private void MessageEngine() {
+            NetIncomingMessage message;
+            while (isListening) {
+                while ((message = ReadMessage()) != null) {
+                    switch (message.MessageType) {
+                        case NetIncomingMessageType.Data:
+                            // handle custom messages
+                            Console.WriteLine("CLIENT: Read Data here");
+                            //var data = message.Read * ();
+                            break;
+
+                        case NetIncomingMessageType.StatusChanged:
+                            // handle connection status messages
+                            //switch (message.SenderConnection.Status) {
+                                /* .. */
+                            //}
+                            Console.WriteLine($"CLIENT: Status Changed = {message.SenderConnection.Status}");
+                            break;
+
+                        case NetIncomingMessageType.DebugMessage:
+                            // handle debug messages
+                            // (only received when compiled in DEBUG mode)
+                            Console.WriteLine($"CLIENT: {message.ReadString()}");
+                            break;
+
+                        /* .. */
+                        case NetIncomingMessageType.WarningMessage:
+                            Console.WriteLine($"CLIENT: WARNING: {message}");
+                            string msg = message.ReadString();
+                            Console.WriteLine(msg);
+                            break;
+
+                        default:
+                            Console.WriteLine("CLIENT: unhandled message with type: "
+                                + message.MessageType);
+                            Console.WriteLine($"CLIENT: connectiontype: {message.SenderConnection}");
+                            break;
+                    }
+                }
+            }
         }
 
     }

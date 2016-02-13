@@ -35,7 +35,7 @@ namespace Kappa.gui.scenes {
 
             //exitButton = new Button(new Rectangle((window.Width - w) / 2, (window.Height - h) / 2 - ((h + space) * -1), w, h));
             exitButton = new Button();
-            exitButton.ButtonPressed = () => KappaGame.Instance.Exit();
+            exitButton.ButtonPressed = () => KappaGame.Instance.Quit();
 
         }
 

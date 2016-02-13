@@ -25,11 +25,12 @@ namespace Kappa.entity {
         }
 
         protected override bool OnCollision(Fixture fix1, Fixture fix2, Contact contact) {
+            base.OnCollision(fix1, fix2, contact);
+
             if (contact.IsTouching && contact.Manifold.LocalNormal.Y < 0) {
                 canJump = true;
                 isJumping = false;
             }
-
             return true;
         }
 

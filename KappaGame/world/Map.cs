@@ -23,7 +23,7 @@ namespace Kappa.world {
 
         public Map() {
             renderables = new List<IRenderable>();
-            World = new World(new Vector2(0f, 20f));
+            World = new World(new Vector2(0f, 50f));
 
             float h, w;
             h = ConvertUnits.ToSimUnits(KappaGame.Instance.GraphicsDevice.PresentationParameters.Bounds.Height);
@@ -32,7 +32,7 @@ namespace Kappa.world {
             floor = BodyFactory.CreateRectangle(World, w, 1, 1);
             floor.BodyType = BodyType.Static;
             floor.Position = new Vector2(w/2, h-1);
-            floor.Friction = 0f;
+            floor.Friction = 1000f;
         }
 
         public void LoadContent(ContentManager content) {

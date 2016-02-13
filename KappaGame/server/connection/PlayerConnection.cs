@@ -1,7 +1,5 @@
 ﻿using Kappa.entity;
-using Kappa.server.packet;
 using Kappa.world;
-using Network;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +7,6 @@ using System.Text;
 
 namespace Kappa.server {
     abstract class PlayerConnection {
-
-        //ClientConnectionContainer connection;
-        ClientConnectionContainer connection;
 
         public enum ConnectionType {
             ONLINE,

@@ -33,24 +33,44 @@ namespace Kappa.entity {
         }
 
         public override void Update(float dt) {
-            float force = 10000;
+            float force = 1e7f;
+            bool[] keys = { false, false, false, false }; // If we go larger than 4 keys, initialize dynamically
+
             if (Keyboard.GetState().IsKeyDown(Keys.W)) {
-                body.ApplyLinearImpulse(new Vector2(0, -force*dt));
+                keys[0] = true;
             }
             if (Keyboard.GetState().IsKeyDown(Keys.A)) {
-                body.ApplyLinearImpulse(new Vector2(-force*dt, 0));
+                keys[1] = true;
             }
             if (Keyboard.GetState().IsKeyDown(Keys.S)) {
-                body.ApplyLinearImpulse(new Vector2(0, force*dt));
+                keys[2] = true;
             }
             if (Keyboard.GetState().IsKeyDown(Keys.D)) {
-                body.ApplyLinearImpulse(new Vector2(force*dt, 0));
+                keys[3] = true;
             }
+            Vector2 vel = body.LinearVelocity;
+
+            if (keys[0] && !keys[2])
+                body.ApplyLinearImpulse(new Vector2(0, -force));
+                //body.LinearVelocity = new Vector2(vel.X, -force);
+            if (keys[2] && !keys[0])
+                body.ApplyLinearImpulse(new Vector2(0, force));
+                //body.LinearVelocity = new Vector2(vel.X, force);
+
+            if (keys[1] && !keys[3])
+                body.ApplyLinearImpulse(new Vector2(-force, 0));
+                //body.LinearVelocity = new Vector2(-force, vel.Y);
+            if (keys[3] && !keys[1])
+                body.ApplyLinearImpulse(new Vector2(force, 0));
+                //body.LinearVelocity = new Vector2(0force, vel.Y);
+
+
+
             if(canJump && !isJumping && Keyboard.GetState().IsKeyDown(Keys.Space)) {
-                float jumpVel = 10f;
-                Vector2 vel = new Vector2(body.LinearVelocity.X, -jumpVel);
+                float jumpSpeed = 1000f;
+                Vector2 newVel = new Vector2(body.LinearVelocity.X, -jumpSpeed);
                 //body.ApplyLinearImpulse(new Vector2(0, -0.5f*body.Mass*Map.World.Gravity.Y));
-                body.LinearVelocity = vel;
+                body.LinearVelocity = newVel;
                 isJumping = true;
             }
 

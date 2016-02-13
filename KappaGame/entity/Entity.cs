@@ -16,7 +16,9 @@ namespace Kappa.entity {
 
         public Body body { get; protected set; }
 
-        public float MaxVelocity { get; set; } = 10;
+        public bool OnFloor { get; private set; }
+
+        public float MaxSpeed { get; set; } = 10;
 
         public abstract void GenerateBody();
 
@@ -27,14 +29,23 @@ namespace Kappa.entity {
         */
 
         public virtual void Update(float dt) {
-            if(body.LinearVelocity.Length() > MaxVelocity) {
-                Vector2 vel = body.LinearVelocity;
-                vel.Normalize();
-                body.LinearVelocity = vel * MaxVelocity;
+            if(body.LinearVelocity.X > MaxSpeed) {
+                body.LinearVelocity = new Vector2(MaxSpeed, body.LinearVelocity.Y);
+            }
+            if(body.LinearVelocity.X < -MaxSpeed) {
+                body.LinearVelocity = new Vector2(-MaxSpeed, body.LinearVelocity.Y);
+            }
+            if(body.LinearVelocity.Y > MaxSpeed) {
+                body.LinearVelocity = new Vector2(body.LinearVelocity.X, MaxSpeed);
+            }
+            if(body.LinearVelocity.Y < -MaxSpeed) {
+                body.LinearVelocity = new Vector2(body.LinearVelocity.X, -MaxSpeed);
             }
             //Console.WriteLine($"Player is travelling at {body.LinearVelocity.Length()} m/s");
         }
 
-        protected abstract bool OnCollision(Fixture fix1, Fixture fix2, Contact contact);
+        protected virtual bool OnCollision(Fixture fix1, Fixture fix2, Contact contact) {
+            return true;
+        }
     }
 }

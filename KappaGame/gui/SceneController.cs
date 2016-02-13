@@ -65,5 +65,11 @@ namespace Kappa.gui {
             currentScene.LoadContent(Content);
             currentScene.Initialize();
         }
+
+        public void Exit() {
+            if(currentScene != null) {
+                currentScene.Exit();
+            }
+        }
     }
 }

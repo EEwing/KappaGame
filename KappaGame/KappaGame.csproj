@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
@@ -29,7 +29,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -94,6 +94,10 @@
     <Compile Include="world\MapModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Lidgren.Network, Version=3.4.0.456, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Lidgren.Network.dll</HintPath>
+    </Reference>
     <Reference Include="MonoGame.Framework">
       <HintPath>$(MSBuildProgramFiles32)\MonoGame\v3.0\Assemblies\Windows\MonoGame.Framework.dll</HintPath>
     </Reference>
@@ -166,10 +170,6 @@
     <ProjectReference Include="..\Farseer Physics Engine 3.5\Farseer Physics MonoGame.csproj">
       <Project>{0aad36e3-51a5-4a07-ab60-5c8a66bd38b7}</Project>
       <Name>Farseer Physics MonoGame</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\lidgren-network-gen3\Lidgren.Network\Lidgren.Network.csproj">
-      <Project>{49ba1c69-6104-41ac-a5d8-b54fa9f696e8}</Project>
-      <Name>Lidgren.Network</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

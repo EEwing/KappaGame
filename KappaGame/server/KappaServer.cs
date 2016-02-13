@@ -5,6 +5,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using Shared.Networking;
+using Shared.Networking.Interfaces;
+using Shared.Networking.Packets.Client;
+using Shared.Networking.Packets.Server;
 
 namespace Kappa.server
 {
@@ -37,6 +41,9 @@ namespace Kappa.server
         }
 
         public void Start() {
+            PacketHelper.Add(PacketTypes.Ping, typeof(PingPacket));
+            PacketHelper.Add(PacketTypes.Pong, typeof(PongPacket));
+
             server.Start();
             isListening = true;
             messageThread.Start();
@@ -49,16 +56,27 @@ namespace Kappa.server
         }
 
         private void ListenForMessages() {
-            NetIncomingMessage message;
             Console.WriteLine("SERVER: Listening for messages");
-            while (isListening) {
+            while (isListening)
+            {
+                NetIncomingMessage message;
                 while ((message = server.ReadMessage()) != null) {
                     switch (message.MessageType) {
                         case NetIncomingMessageType.Data:
-                            // handle custom messages
-                            Console.WriteLine("SERVER: Read Data here");
-                            Console.WriteLine(message.ReadString());
-                            //var data = message.Read * ();
+                            //read
+                            PacketTypes type = (PacketTypes)message.ReadByte();
+                            PingPacket payPacket = PacketHelper.Get<PingPacket>(type);
+                            payPacket.Deserialize(message);
+                            Console.WriteLine($"We got a packet of: {type} with PingMs {payPacket.PingMs}");
+
+                            //send
+                            NetOutgoingMessage msg = server.CreateMessage();
+                            PongPacket outbound = PacketHelper.Get<PongPacket>(PacketTypes.Pong);
+                            outbound.PingMs = DateTime.Now.Millisecond;
+                            outbound.Serialize(msg);
+                            server.SendMessage(msg, message.SenderConnection, NetDeliveryMethod.ReliableOrdered);
+                            Console.WriteLine($"We send a packet of: {PacketTypes.Pong} with PingMs {outbound.PingMs}");
+             
                             break;
 
                         case NetIncomingMessageType.StatusChanged:

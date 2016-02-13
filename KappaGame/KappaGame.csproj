@@ -177,6 +177,10 @@
       <Project>{0aad36e3-51a5-4a07-ab60-5c8a66bd38b7}</Project>
       <Name>Farseer Physics MonoGame</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Shared.Networking\Shared.Networking.csproj">
+      <Project>{02ea0172-f966-4da6-b4e1-0cfc13f2c2a0}</Project>
+      <Name>Shared.Networking</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

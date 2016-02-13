@@ -5,6 +5,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using Shared.Networking;
+using Shared.Networking.Interfaces;
+using Shared.Networking.Packets.Client;
+using Shared.Networking.Packets.Server;
 
 namespace Kappa.server
 {
@@ -54,9 +58,19 @@ namespace Kappa.server
                     switch (message.MessageType) {
                         case NetIncomingMessageType.Data:
                             // handle custom messages
-                            Console.WriteLine("CLIENT: Read Data here");
-                            Console.WriteLine(message.ReadString());
-                            //var data = message.Read * ();
+                            //read
+                            PacketTypes type = (PacketTypes)message.ReadByte();
+                            PongPacket payPacket = PacketHelper.Get<PongPacket>(type);
+                            payPacket.Deserialize(message);
+                            Console.WriteLine($"We got a packet of: {type} with PingMs {payPacket.PingMs}");
+
+                            //send
+                            NetOutgoingMessage msg = client.CreateMessage();
+                            PingPacket outbound = PacketHelper.Get<PingPacket>(PacketTypes.Ping);
+                            outbound.PingMs = DateTime.Now.Millisecond;
+                            outbound.Serialize(msg);
+                            client.SendMessage(msg, message.SenderConnection, NetDeliveryMethod.ReliableOrdered);
+                            Console.WriteLine($"We sent a packet of: {PacketTypes.Ping} with PingMs {outbound.PingMs}");
                             break;
 
                         case NetIncomingMessageType.StatusChanged:

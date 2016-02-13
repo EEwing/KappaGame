@@ -23,7 +23,7 @@ namespace Kappa.entity {
 
         public void LoadContent(ContentManager content) {
             if(texture == null) 
-                texture = content.Load<Texture2D>("textures/entities/player");
+                texture = content.Load<Texture2D>("textures/entities/gritty2");
             if (hitbox == null)
                 hitbox = content.Load<Texture2D>("textures/entities/hitbox");
         }
@@ -52,17 +52,15 @@ namespace Kappa.entity {
 
             if (keys[0] && !keys[2])
                 body.ApplyLinearImpulse(new Vector2(0, -force));
-                //body.LinearVelocity = new Vector2(vel.X, -force);
             if (keys[2] && !keys[0])
                 body.ApplyLinearImpulse(new Vector2(0, force));
-                //body.LinearVelocity = new Vector2(vel.X, force);
 
             if (keys[1] && !keys[3])
                 body.ApplyLinearImpulse(new Vector2(-force, 0));
-                //body.LinearVelocity = new Vector2(-force, vel.Y);
             if (keys[3] && !keys[1])
                 body.ApplyLinearImpulse(new Vector2(force, 0));
-                //body.LinearVelocity = new Vector2(0force, vel.Y);
+            if (keys[1] == keys[3])
+                body.LinearVelocity = new Vector2(0, vel.Y);
 
 
 

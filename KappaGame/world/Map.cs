@@ -32,7 +32,7 @@ namespace Kappa.world {
             floor = BodyFactory.CreateRectangle(World, w, 1, 1);
             floor.BodyType = BodyType.Static;
             floor.Position = new Vector2(w/2, h-1);
-            floor.Friction = 1000f;
+            floor.Friction = 0f;
         }
 
         public void LoadContent(ContentManager content) {

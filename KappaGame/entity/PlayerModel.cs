@@ -35,7 +35,7 @@ namespace Kappa.entity {
         }
 
         public override void GenerateBody() {
-            body = BodyFactory.CreateRectangle(Map.World, 0.5f, 1f, 1);
+            body = BodyFactory.CreateRectangle(Map.World, .5f, .5f, 1);
             body.BodyType = BodyType.Dynamic;
             body.FixedRotation = true;
             body.Mass = 200;

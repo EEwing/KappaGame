@@ -72,7 +72,7 @@ namespace Kappa {
             float dt = gameTime.ElapsedGameTime.Milliseconds / 1000f;
             FPS = 1 / dt;
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Quit();
+                Exit();
 
             SceneController.Instance.Update(dt);
 
@@ -94,10 +94,9 @@ namespace Kappa {
 
             base.Draw(gameTime);
         }
-
-        public void Quit() {
+        
+        protected override void OnExiting(object sender, EventArgs args) {
             SceneController.Instance.Exit();
-            Exit();
         }
     }
 }

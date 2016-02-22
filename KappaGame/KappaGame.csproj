@@ -70,8 +70,10 @@
     <Compile Include="client\OptionsProfile.cs" />
     <Compile Include="entity\Damagable.cs" />
     <Compile Include="entity\Entity.cs" />
+    <Compile Include="entity\EntityState.cs" />
     <Compile Include="entity\Player.cs" />
     <Compile Include="entity\PlayerModel.cs" />
+    <Compile Include="entity\UpdateHistory.cs" />
     <Compile Include="gui\interaction\Button.cs" />
     <Compile Include="gui\IRenderable.cs" />
     <Compile Include="gui\Scene.cs" />
@@ -87,7 +89,13 @@
     <Compile Include="server\connection\OfflinePlayerConnection.cs" />
     <Compile Include="server\connection\OnlinePlayerConnection.cs" />
     <Compile Include="server\connection\PlayerConnection.cs" />
+    <Compile Include="server\INetworkListener.cs" />
+    <Compile Include="server\ISerializable.cs" />
+    <Compile Include="server\KappaNetworkBase.cs" />
     <Compile Include="server\KappaClient.cs" />
+    <Compile Include="server\packet\EntityStatePacket.cs" />
+    <Compile Include="server\packet\MapStatePacket.cs" />
+    <Compile Include="server\packet\server\ConnectionAcceptPacket.cs" />
     <Compile Include="utilities\Pathfinder.cs" />
     <Compile Include="world\Camera.cs" />
     <Compile Include="world\Map.cs" />
@@ -152,9 +160,7 @@
     <Compile Include="server\PlayerManager.cs" />
     <Compile Include="server\KappaServer.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="server\packet\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
       <Visible>False</Visible>
@@ -184,6 +190,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="ClassDiagram1.cd" />
+    <None Include="ClassDiagram2.cd" />
+    <None Include="ClassDiagram3.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />

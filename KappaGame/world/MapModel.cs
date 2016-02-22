@@ -22,6 +22,16 @@ namespace Kappa.world {
             return ent;
         }
 
+        public Entity GetEntity(Guid id) {
+            foreach (Entity ent in entities) {
+                //Console.WriteLine($"Checking {id} against {ent.id}");
+                if(ent.id.Equals(id)) {
+                    return ent;
+                }
+            }
+            return null;
+        }
+
         public void Update(float dt) {
             World.Step(dt);
 

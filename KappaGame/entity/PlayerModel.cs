@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Lidgren.Network;
 
 namespace Kappa.entity {
     abstract class PlayerModel : Entity {
@@ -21,7 +22,11 @@ namespace Kappa.entity {
         protected bool isJumping = false;
         protected bool canJump = false;
 
-        protected PlayerModel() {
+        public PlayerModel() : this(Guid.Empty) { }
+
+        public PlayerModel(Guid id) : base(id) {
+            NetworkUpdatePriority = 1000000;
+            UpdateHistory = new UpdateHistory();
         }
 
         protected override bool OnCollision(Fixture fix1, Fixture fix2, Contact contact) {
@@ -40,6 +45,19 @@ namespace Kappa.entity {
             body.FixedRotation = true;
             body.Mass = 200;
             body.OnCollision += this.OnCollision;
+        }
+
+        public override void Serialize(NetOutgoingMessage message) {
+            base.Serialize(message);
+            message.Write(isJumping);
+            message.Write(canJump);
+        }
+        
+
+        public override void Deserialize(NetIncomingMessage message) {
+            base.Deserialize(message);
+            isJumping = message.ReadBoolean();
+            canJump = message.ReadBoolean();
         }
 
     }

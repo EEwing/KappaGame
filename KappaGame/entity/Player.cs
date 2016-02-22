@@ -17,16 +17,15 @@ namespace Kappa.entity {
         private static Texture2D texture;
         private static Texture2D hitbox;
 
-        public Player() {
-
-        }
-
         public void LoadContent(ContentManager content) {
             if(texture == null) 
                 texture = content.Load<Texture2D>("textures/entities/gritty2");
             if (hitbox == null)
                 hitbox = content.Load<Texture2D>("textures/entities/hitbox");
         }
+
+        public Player(Guid id) : base(id) { }
+        public Player() : this(Guid.Empty) { Console.WriteLine("This shouldn't happen........................................"); }
 
         public void Render(SpriteBatch spriteBatch) {
             spriteBatch.Draw(texture, new Vector2(ConvertUnits.ToDisplayUnits(body.Position.X), ConvertUnits.ToDisplayUnits(body.Position.Y)));
@@ -49,7 +48,7 @@ namespace Kappa.entity {
                 keys[3] = true;
             }
             Vector2 vel = body.LinearVelocity;
-
+            
             if (keys[0] && !keys[2])
                 body.ApplyLinearImpulse(new Vector2(0, -force));
             if (keys[2] && !keys[0])

@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KappaGame", "KappaGame\Kapp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Farseer Physics MonoGame", "Farseer Physics Engine 3.5\Farseer Physics MonoGame.csproj", "{0AAD36E3-51A5-4A07-AB60-5C8A66BD38B7}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Server-Client Test", "Server-Client Test", "{7311B5D8-D539-45C1-A2D8-5C0A7563D8D1}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared.Networking", "Shared.Networking\Shared.Networking.csproj", "{02EA0172-F966-4DA6-B4E1-0CFC13F2C2A0}"
 EndProject
 Global

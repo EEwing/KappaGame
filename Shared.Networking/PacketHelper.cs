@@ -6,8 +6,16 @@ namespace Shared.Networking
 {
     public enum PacketTypes : byte
     {
+        // 0-F = Utility packets
         Ping = 0x0,
-        Pong = 0x1
+        Pong = 0x1,
+
+        // 10-1F = Player packets
+        ConnectionAccept = 0x10,
+        EntityState = 0x11,
+
+        // 20-2F = Map packets
+        MapState = 0x20
     }
 
     public class PacketHelper
@@ -18,26 +26,26 @@ namespace Shared.Networking
     
         public static void Add(PacketTypes type, Type packet)
         {
-            if (_loadedPackets.ContainsKey(type)) throw new Exception("Packet type already added");
+            if (LoadedPackets.ContainsKey(type)) throw new Exception("Packet type already added");
             _loadedPackets.Add(type, packet);
         }
 
         public static void Remove(PacketTypes type)
         {
-            if (!_loadedPackets.ContainsKey(type)) throw new Exception("Invalid Packet Type");
-            _loadedPackets.Remove(type);
+            if (!LoadedPackets.ContainsKey(type)) throw new Exception("Invalid Packet Type");
+            LoadedPackets.Remove(type);
         }
 
         public static Packet Get(PacketTypes type)
         {
-            if (!_loadedPackets.ContainsKey(type)) throw new Exception("Invalid Packet Type");
-            return (Packet)Activator.CreateInstance(_loadedPackets[type]);
+            if (!LoadedPackets.ContainsKey(type)) throw new Exception("Invalid Packet Type");
+            return (Packet)Activator.CreateInstance(LoadedPackets[type]);
         }
 
         public static T Get<T>(PacketTypes type) where T : new()
         {
-            if (!_loadedPackets.ContainsKey(type)) throw new Exception("Invalid Packet Type");
-            return (T)Activator.CreateInstance(_loadedPackets[type]);
+            if (!LoadedPackets.ContainsKey(type)) throw new Exception("Invalid Packet Type");
+            return (T)Activator.CreateInstance(LoadedPackets[type]);
         }
     }
 }

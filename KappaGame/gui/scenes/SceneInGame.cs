@@ -11,14 +11,14 @@ using Kappa.server;
 namespace Kappa.gui.scenes {
     class SceneInGame: Scene {
 
-        Map map;
+        Map Map;
         Player player;
         KappaServer server;
         KappaClient client;
         private Camera _camera;
 
         public SceneInGame() {
-            map = new Map();
+            Map = new Map();
             player = new Player();
          }
 
@@ -30,8 +30,10 @@ namespace Kappa.gui.scenes {
         public override void Initialize() {
             server = new KappaServer();
             client = new KappaClient();
-            player = map.CreateEntity(player);
-            
+            client.Map = Map;
+            client.Player = player;
+            player = Map.CreateEntity(player);
+
             List<PlayerModel> players = new List<PlayerModel>();
             players.Add(player);
 
@@ -46,19 +48,20 @@ namespace Kappa.gui.scenes {
         }
 
         public override void LoadContent(ContentManager content) {
-            map.LoadContent(content);
+            Map.LoadContent(content);
             player.LoadContent(content);
         }
 
         public override void Render(SpriteBatch spriteBatch) {
             spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, _camera.GetMatrix());
-            map.Render(spriteBatch);
+            Map.Render(spriteBatch);
         }
 
         public override void Update(float dt) {
             _camera.Update();
-            map.Update(dt);
+            Map.Update(dt);
+            client.update(dt);
         }
     }
 }
